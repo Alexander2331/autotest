@@ -1,0 +1,32 @@
+import time
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+
+def main():
+    # Відкрийте веб-браузер
+    driver = webdriver.Chrome()
+
+    # Перейдіть на веб-сторінку
+    driver.get("https://docs.b360.autodesk.com/projects/424/issues?issueSubType=844283")
+
+    # Знайдіть елемент "Elevation 1 - A"
+    elevation_a_element = driver.find_element(By.xpath("//div[@id='issue-details']//span[text()='Elevation 1 - A']")
+
+    # Якщо елемент є, завантажте файл і натисніть кнопку "Далі"
+    if elevation_a_element is not None:
+        elevation_a_element.click()
+        time.sleep(1)
+        driver.find_element(By.xpath("//button[@id='next-button']")).click()
+
+    # Якщо елемент відсутній, натисніть кнопку "Далі"
+    else:
+        driver.find_element(By.xpath("//button[@id='next-button']")).click()
+
+    # Завершіть тест
+    driver.quit()
+
+
+if __name__ == "__main__":
+    main()
